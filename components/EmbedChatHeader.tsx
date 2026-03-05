@@ -11,9 +11,11 @@ export function EmbedChatHeader() {
   };
 
   const toggleFullScreen = () => {
-    setIsFullScreen(!isFullScreen);
+    const next = !isFullScreen;
+    setIsFullScreen(next);
+
     window.parent.postMessage(
-      { type: "toggleExpand", value: !isFullScreen },
+      { type: "toggleExpand", value: next },
       "*"
     );
   };
