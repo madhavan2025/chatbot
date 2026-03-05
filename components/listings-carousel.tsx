@@ -27,21 +27,7 @@ export function ListingsCarousel({
   const [cartItems, setCartItems] = useState<Record<string, boolean>>({});
   const total = products.length;
   const [isMobile, setIsMobile] = useState(false);
-  const [loading, setLoading] = useState(true);
-  const visibleCount = isMobile
-  ? 1
-  : isExpanded
-  ? 3
-  : style === "type2"
-  ? 2
-  : 1;
-  const next = () => setIndex((i) => (i + visibleCount) % total);
-  const prev = () => setIndex((i) => (i - visibleCount + total) % total);
-  const visibleListings = Array.from({ length: visibleCount })
-  .map((_, i) => products[(index + i) % total])
-  .filter(Boolean);
-
-  useEffect(() => {
+    useEffect(() => {
   const checkMobile = () => {
     let width = window.innerWidth;
 
@@ -62,6 +48,21 @@ export function ListingsCarousel({
 
   return () => window.removeEventListener("resize", checkMobile);
 }, []);
+
+  const [loading, setLoading] = useState(true);
+  const visibleCount = isMobile
+  ? 1
+  : isExpanded
+  ? 3
+  : style === "type2"
+  ? 2
+  : 1;
+  const next = () => setIndex((i) => (i + visibleCount) % total);
+  const prev = () => setIndex((i) => (i - visibleCount + total) % total);
+  const visibleListings = Array.from({ length: visibleCount })
+  .map((_, i) => products[(index + i) % total])
+  .filter(Boolean);
+
 
   async function getProducts() {
   const res = await fetch("/api/products");
