@@ -207,9 +207,9 @@ if (lower.includes("show contents")) {
   className="relative flex h-full min-h-0 flex-col items-center"
 > 
 <div className="flex-1 items-center w-full overflow-y-auto min-h-0 ">
- <div
-  className={`flex flex-col w-full ${
-    isExpanded ? "max-w-none px-6" : "mx-auto max-w-4xl"
+  <div
+  className={`mx-auto flex flex-col ${
+    isExpanded ? "max-w-6xl w-full" : "max-w-4xl w-full"
   }`}
 >
   <Messages

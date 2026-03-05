@@ -26,8 +26,11 @@ export function ListingsCarousel({
   const [products, setProducts] = useState<any[]>([]);
   const [cartItems, setCartItems] = useState<Record<string, boolean>>({});
   const total = products.length;
+  const [isMobile, setIsMobile] = useState(false);
   const [loading, setLoading] = useState(true);
-  const visibleCount = isExpanded
+  const visibleCount = isMobile
+  ? 1
+  : isExpanded
   ? 3
   : style === "type2"
   ? 2
@@ -38,7 +41,16 @@ export function ListingsCarousel({
   .map((_, i) => products[(index + i) % total])
   .filter(Boolean);
 
+useEffect(() => {
+  const checkMobile = () => {
+    setIsMobile(window.innerWidth < 640); // Tailwind sm breakpoint
+  };
 
+  checkMobile();
+  window.addEventListener("resize", checkMobile);
+
+  return () => window.removeEventListener("resize", checkMobile);
+}, []);
 
   async function getProducts() {
   const res = await fetch("/api/products");
