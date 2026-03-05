@@ -16,7 +16,7 @@
     width: "380px",
     height: "600px",
     maxWidth: "92vw",
-    maxHeight: "80vh",
+    maxHeight: "85vh",
     border: "none",
     borderRadius: "12px",
     boxShadow: "0 10px 30px rgba(0,0,0,.2)",
