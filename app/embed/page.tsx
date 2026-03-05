@@ -1,7 +1,7 @@
 "use client";
 
 import { FloatingChat } from "@/components/FloatingChat";
-import EmbedChat from "@/components/Embedchat";
+import EmbedChat from "@/components/EmbedChat";
 import { isEmbedMode } from "@/lib/isEmbed";
 
 export default function Page() {
