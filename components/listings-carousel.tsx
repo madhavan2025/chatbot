@@ -11,14 +11,12 @@ type Listing = {
 };
 type ListingsCarouselProps = {
   style?: "type1" | "type2";
-  onViewCart?:()=>void;
-  isExpanded?: boolean;
+  onViewCart?:()=>void
 };
 
 export function ListingsCarousel({
   style = "type1",
   onViewCart,
-  isExpanded=false,
 }: ListingsCarouselProps) {
   const [index, setIndex] = useState(0);
   const [addedItems, setAddedItems] = useState<Record<string, boolean>>({});
@@ -26,6 +24,7 @@ export function ListingsCarousel({
   const [products, setProducts] = useState<any[]>([]);
   const [cartItems, setCartItems] = useState<Record<string, boolean>>({});
   const total = products.length;
+  const [isExpanded, setIsExpanded] = useState(false);
   const [loading, setLoading] = useState(true);
   const visibleCount = isExpanded
   ? 3
@@ -61,7 +60,19 @@ async function fetchCart() {
     setIndex(0);
   }, [style]);
 
- 
+ useEffect(() => {
+  function handleMessage(event: MessageEvent) {
+    if (event.data?.type === "parentExpandState") {
+      setIsExpanded(event.data.value);
+    }
+  }
+
+  window.addEventListener("message", handleMessage);
+
+  return () => {
+    window.removeEventListener("message", handleMessage);
+  };
+}, []);
 
 const handleAddToCart = async (listing: any) => {
   await fetch("/api/cart", {
