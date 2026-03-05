@@ -115,7 +115,7 @@ function applyFullScreen() {
   else {
     iframe.style.width = "min(1200px,95vw)";
     iframe.style.height = "97vh";
-    iframe.style.bottom = "50%";
+    iframe.style.bottom = "45%";
     iframe.style.right = "50%";
     iframe.style.transform = "translate(50%,50%)";
     iframe.style.borderRadius = "12px";
