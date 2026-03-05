@@ -39,7 +39,7 @@ export function Chat({
   initialMessages,
   initialVisibilityType,
   isReadonly,
-  isExpanded = false,
+  isExpanded: initialExpanded = false,
 
 }: {
   id: string;
@@ -69,10 +69,24 @@ const [showCheckout, setShowCheckout] = useState(false);
 const stop = async () => {};
 const votes: { chatId: string; messageId: string; isUpvoted: boolean }[] = [];
 const selectedVisibilityType = initialVisibilityType; // UI stub
-
+const [isExpanded, setIsExpanded] = useState(initialExpanded);
 const [listingType, setListingType] = useState<"type1" | "type2" | null>(null);
 
   /* ---------------- NO-OP UI HANDLERS ---------------- */
+
+useEffect(() => {
+  function handleMessage(event: MessageEvent) {
+    if (event.data?.type === "parentExpandState") {
+      setIsExpanded(event.data.value);
+    }
+  }
+
+  window.addEventListener("message", handleMessage);
+
+  return () => {
+    window.removeEventListener("message", handleMessage);
+  };
+}, []);
 
 useEffect(() => {
     async function fetchData() {
@@ -102,9 +116,7 @@ useEffect(() => {
     ]);
   };
 
- 
-
-  const sendMessage = async (
+ const sendMessage = async (
   message?: {
     role?: "user" | "assistant" | "system";
     parts?: ChatMessage["parts"];
@@ -186,12 +198,6 @@ if (lower.includes("show contents")) {
    resetAllViews();
   addAssistantMessage("Hi 😊 What can I help you with today?");
 };
-
-
-
-
-
-
   return (
     <>
 <div
