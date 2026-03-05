@@ -331,11 +331,7 @@ const renderSkeleton = () => {
   );
   };
   return (
-   <div
-  className={`mx-auto w-full px-2 pb-4 ${
-    isExpanded ? "max-w-none" : "max-w-4xl"
-  }`}
->
+     <div className="mx-auto w-full max-w-4xl px-2 pb-4 ">
     <div className="relative flex w-full flex-col gap-4">
     
       <div className="w-full overflow-hidden shadow-xs rounded-xl border p-3">
